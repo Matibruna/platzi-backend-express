@@ -68,6 +68,7 @@ router.patch(
     validatorHandler(updateProductSchema, PROPERTIES.BODY),
     async (req, res, next) => {
         try {
+            
             const { id } = req.params;
             const body = req.body;
             let product = await Service.update(id, body);
