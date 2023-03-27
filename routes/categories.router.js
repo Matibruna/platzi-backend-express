@@ -35,4 +35,10 @@ router.put(BY_ID, (req, res) => {
     res.json(Service.update(id, body));
 });
 
+router.patch(BY_ID, (req, res) => {
+    const { id } = req.params;
+    const body = req.body;
+    res.json(Service.update(id, body));
+});
+
 module.exports = router;

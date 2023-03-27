@@ -1,3 +1,4 @@
+const boom = require("@hapi/boom");
 const { faker }  = require('@faker-js/faker');
 
 class ProductosService{
@@ -18,20 +19,26 @@ class ProductosService{
         return this.productos;
     }
 
-    findOne(id){
-        return this.productos.find(el => el.id === id);
+    async findOne(id){
+        let product = this.productos.find(el => el.id === id);
+
+        if(product){
+            return product;
+        }
+
+        throw boom.notFound("Product not found.");
     }
 
-    update(id, updatedProduct){
+    async update(id, updatedProduct){
         let index = this.productos.findIndex(el => el.id === id);
 
-        if(index === -1) throw new Error("not found");
+        if(index === -1) throw boom.notFound("Product not found.");
 
         this.productos[index] = {
             ...this.productos[index],
             ...updatedProduct
         };
-
+        
         return this.productos[index];
     }
 
